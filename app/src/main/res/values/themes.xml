@@ -6,4 +6,9 @@
     </style>
 
     <style name="Theme.ProAssist" parent="Base.Theme.ProAssist" />
+
+    <style name="button">
+        <item name="android:background">@drawable/buttonbg</item>
+        <item name="android:textColor">@color/blueLight</item>
+    </style>
 </resources>
