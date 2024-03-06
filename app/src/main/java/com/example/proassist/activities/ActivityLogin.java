@@ -6,10 +6,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.proassist.R;
+import com.example.proassist.interfaces.TaskCompleted;
+import com.example.proassist.model.User;
+import com.example.proassist.services.UserService;
 
-public class ActivityLogin extends AppCompatActivity {
+public class ActivityLogin extends AppCompatActivity implements TaskCompleted {
 
     private EditText inputUsername;
     private EditText inputPassword;
@@ -36,11 +40,15 @@ public class ActivityLogin extends AppCompatActivity {
             String inputUser = inputUsername.getText().toString();
             String inputPass = inputPassword.getText().toString();
 
-            if(inputUser.isEmpty() || !inputUser.equals(testUser)) return;
-            if(inputPass.isEmpty() || !inputPass.equals(testPass)) return;
+            //TODO CHECK USER
+            if(inputUser.isEmpty()) return;
+            if(inputPass.isEmpty()) return;
 
-            goToMenu();
+            //goToMenu();
 
+
+            UserService serv = new UserService(ActivityLogin.this);
+            serv.execute(new User(inputUser,inputPass));
         });
     }
 
@@ -52,5 +60,10 @@ public class ActivityLogin extends AppCompatActivity {
 
     private void goToMenu(){
         startActivity(new Intent(ActivityLogin.this, ActivityMenu.class));
+    }
+
+    @Override
+    public void onTaskCompleted(String s) {
+        Toast.makeText(ActivityLogin.this, "Res:" + s, Toast.LENGTH_SHORT).show();
     }
 }
