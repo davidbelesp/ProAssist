@@ -98,7 +98,6 @@ public class AltaAsistenciasActivity extends AppCompatActivity implements TaskCo
             AddFaltaDto newFalta = new AddFaltaDto(idProfesor, inFecha);
 
             Toast.makeText(this, newFalta.toString(), Toast.LENGTH_SHORT).show();
-            Log.i("FALTAS INFO", newFalta.toString());
             new CrearFaltaDiaCService(this).execute(newFalta);
             return;
         }
@@ -116,10 +115,6 @@ public class AltaAsistenciasActivity extends AppCompatActivity implements TaskCo
         for (AddFaltaDto falta: faltas) {
             new CrearFaltaService(this).execute(falta);
         }
-
-        Log.i("FALTAS INFO", faltas.toString());
-
-
 
     }
 
@@ -219,6 +214,6 @@ public class AltaAsistenciasActivity extends AppCompatActivity implements TaskCo
 
     @Override
     public void onTaskCompleted(String s) {
-
+        Toast.makeText(this, "Falta creada con éxito", Toast.LENGTH_SHORT).show();
     }
 }
