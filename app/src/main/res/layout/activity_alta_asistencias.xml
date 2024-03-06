@@ -9,7 +9,7 @@
     tools:context=".activities.FaltasMananaActivity">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar2"
+        android:id="@+id/toolbarAltaAsistencias"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@color/blueBG2"
@@ -32,7 +32,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar2">
+        app:layout_constraintTop_toBottomOf="@+id/toolbarAltaAsistencias">
 
         <TextView
             android:id="@+id/tvAltaNombreProfesor"
@@ -58,7 +58,9 @@
             android:layout_marginBottom="20dp"
             android:ems="10"
             android:inputType="text"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:focusable="false"
+            android:focusableInTouchMode="false"/>
 
         <LinearLayout
             android:layout_width="match_parent"

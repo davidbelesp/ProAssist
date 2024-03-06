@@ -1,6 +1,8 @@
 package com.example.proassist.model;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
 
     private Integer id;
     private String nombre;
@@ -10,6 +12,14 @@ public class User {
 
     public User(String nombre, String _password){
         this.nombre = nombre;
+        this._password = _password;
+    }
+
+    public User(Integer id, String nombre, String apellido, String especialidad, String _password) {
+        this.id = id;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        Especialidad = especialidad;
         this._password = _password;
     }
 
@@ -51,5 +61,16 @@ public class User {
 
     public void set_password(String _password) {
         this._password = _password;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", apellido='" + apellido + '\'' +
+                ", Especialidad='" + Especialidad + '\'' +
+                ", _password='" + _password + '\'' +
+                '}';
     }
 }

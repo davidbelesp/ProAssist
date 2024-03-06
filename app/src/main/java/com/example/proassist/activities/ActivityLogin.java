@@ -4,14 +4,19 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.proassist.R;
 import com.example.proassist.interfaces.TaskCompleted;
+import com.example.proassist.mappers.UserMapper;
 import com.example.proassist.model.User;
 import com.example.proassist.services.UserService;
+import com.example.proassist.utils.SharedPreferencesUtils;
+
+import org.json.JSONException;
 
 public class ActivityLogin extends AppCompatActivity implements TaskCompleted {
 
@@ -28,10 +33,11 @@ public class ActivityLogin extends AppCompatActivity implements TaskCompleted {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         
-        
         loadElements();
         
         setEvents();
+
+        loadSavedSession();
         
     }
 
@@ -40,16 +46,28 @@ public class ActivityLogin extends AppCompatActivity implements TaskCompleted {
             String inputUser = inputUsername.getText().toString();
             String inputPass = inputPassword.getText().toString();
 
-            //TODO CHECK USER
+            //TODO RED WHEN NO USER
             if(inputUser.isEmpty()) return;
             if(inputPass.isEmpty()) return;
 
-            //goToMenu();
-
-
             UserService serv = new UserService(ActivityLogin.this);
             serv.execute(new User(inputUser,inputPass));
+
+
         });
+    }
+
+    private void loadSavedSession(){
+        String usernm = SharedPreferencesUtils.getUsername(this);
+        String passwd = SharedPreferencesUtils.getPassword(this);
+        if(usernm != null && passwd != null){
+            UserService serv = new UserService(ActivityLogin.this);
+            serv.execute(new User(usernm,passwd));
+        }
+    }
+
+    private void saveSession(User user){
+        SharedPreferencesUtils.saveSession(this, user);
     }
 
     private void loadElements() {
@@ -58,12 +76,27 @@ public class ActivityLogin extends AppCompatActivity implements TaskCompleted {
         this.btnLogin = findViewById(R.id.btnLogin);
     }
 
-    private void goToMenu(){
-        startActivity(new Intent(ActivityLogin.this, ActivityMenu.class));
+    private void goToMenu(User usuario){
+        startActivity(new Intent(ActivityLogin.this, ActivityMenu.class).putExtra("user", usuario));
     }
 
     @Override
-    public void onTaskCompleted(String s) {
-        Toast.makeText(ActivityLogin.this, "Res:" + s, Toast.LENGTH_SHORT).show();
+    public void onTaskCompleted(String userString) {
+
+        if (userString == null || userString.equals("[]")) {
+            Toast.makeText(this, "NO ENCONTRADO", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        try {
+            User usuario = new UserMapper().map(userString);
+
+            saveSession(usuario);
+
+            goToMenu(usuario);
+            finish();
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
