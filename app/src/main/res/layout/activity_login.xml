@@ -17,6 +17,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <TextView
+            android:id="@+id/errorMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:layout_marginBottom="40dp"
+            android:paddingLeft="30dp"
+            android:text="ProfAsist"
+            android:textColor="@color/white"
+            android:textSize="48sp"
+            android:textStyle="bold" />
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -62,7 +74,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
                 android:ems="10"
-                android:inputType="text"
+                android:inputType="textPassword"
                 android:textColor="@color/white" />
 
             <Button
@@ -74,6 +86,15 @@
                 android:textColor="@color/blueLight"
                 android:theme="@style/button" />
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvError"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="30dp"
+            android:textColor="@color/error"
+            android:textColorHighlight="@color/error" />
 
     </LinearLayout>
 

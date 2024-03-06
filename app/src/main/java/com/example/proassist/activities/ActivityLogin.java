@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.proassist.R;
@@ -22,11 +23,10 @@ public class ActivityLogin extends AppCompatActivity implements TaskCompleted {
 
     private EditText inputUsername;
     private EditText inputPassword;
+    private TextView tvError;
+
 
     private Button btnLogin;
-
-    private String testUser = "test";
-    private String testPass = "1234";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,14 +46,11 @@ public class ActivityLogin extends AppCompatActivity implements TaskCompleted {
             String inputUser = inputUsername.getText().toString();
             String inputPass = inputPassword.getText().toString();
 
-            //TODO RED WHEN NO USER
             if(inputUser.isEmpty()) return;
             if(inputPass.isEmpty()) return;
 
             UserService serv = new UserService(ActivityLogin.this);
             serv.execute(new User(inputUser,inputPass));
-
-
         });
     }
 
@@ -74,6 +71,7 @@ public class ActivityLogin extends AppCompatActivity implements TaskCompleted {
         this.inputPassword = findViewById(R.id.inputPassword);
         this.inputUsername = findViewById(R.id.inputUsuario);
         this.btnLogin = findViewById(R.id.btnLogin);
+        this.tvError = findViewById(R.id.tvError);
     }
 
     private void goToMenu(User usuario){
@@ -84,7 +82,7 @@ public class ActivityLogin extends AppCompatActivity implements TaskCompleted {
     public void onTaskCompleted(String userString) {
 
         if (userString == null || userString.equals("[]")) {
-            Toast.makeText(this, "NO ENCONTRADO", Toast.LENGTH_SHORT).show();
+            tvError.setText("Usuario o contraseña incorrecto");
             return;
         }
 

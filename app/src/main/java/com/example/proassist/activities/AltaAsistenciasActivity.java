@@ -94,7 +94,6 @@ public class AltaAsistenciasActivity extends AppCompatActivity implements TaskCo
         String inFecha = this.fecha;
         Integer idProfesor = this.user.getId();
 
-        //  TODO ADD FALTA TODO EL DIA
         if(this.diaCompleto.isChecked()){
             AddFaltaDto newFalta = new AddFaltaDto(idProfesor, inFecha);
 
@@ -104,7 +103,6 @@ public class AltaAsistenciasActivity extends AppCompatActivity implements TaskCo
             return;
         }
 
-        //  TODO ADD FALTA LAS HORAS QUE SE SEÑALAN
 
         Switch[] switches = {hora1,hora2,hora3,hora4,hora5,hora6};
         List<AddFaltaDto> faltas = new ArrayList<>();

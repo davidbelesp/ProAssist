@@ -48,7 +48,7 @@ public class FaltasMananaActivity extends AppCompatActivity implements TaskCompl
     private void loadElements() {
         this.toolbar = findViewById(R.id.toolbarFaltasManana);
         this.recyclerView = findViewById(R.id.recyclerFaltasManana);
-        this.selectorHora = findViewById(R.id.spinnerSelectorHora);
+        this.selectorHora = findViewById(R.id.spinnerSelectorHoraManana);
     }
 
     private void setEvents() {
